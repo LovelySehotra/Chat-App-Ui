@@ -1,17 +1,51 @@
+import { login, signup } from "@/Redux/Slices/AuthSkice";
 import victory from "@/assets/victory.svg"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 function Auth() {
+    const dispatch = useDispatch();
+    const navigate = useNavigate()
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState("");
-    const handleLogin =async()=>{
+
+    const validateSignup =()=>{
+        if(!email.length){
+            toast.error("Email is required")
+            return false
+        }
+        if(!password.length){
+            toast.error("Password is required")
+            return false
+        }
+        if(password!==confirmPassword){
+            toast.error("Password and confirm password should be same");
+            return false
+        }
+        return true
 
     }
+    const handleLogin =async()=>{
+        const res = await dispatch(login({email,password}))
+       if(res.payload.user.profileSetup){
+        navigate("/chat")
+       }  else{
+        navigate("/profile")
+       }
+    }
     const handleSignUp =async()=>{
+        if(validateSignup()){
+         const res = await dispatch(signup({email,password}))
+         if(res.status ===201) {
+            navigate("/profile")
+         }
+        }
 
     }
     return (
@@ -28,7 +62,7 @@ function Auth() {
 
                         </p>
                         <div className="flex items-center justify-center w-full">
-                            <Tabs className="w-3/4">
+                            <Tabs className="w-3/4" defaultValue="login">
                                 <TabsList className="bg-transparent rounded-none w-full">
                                     <TabsTrigger value="login" className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-full data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-3 transition-all duration-300 ">Log In</TabsTrigger>
                                     <TabsTrigger value="signup" className="data-[state=active]:bg-transparent text-black text-opacity-90 border-b-2 rounded-none w-full data-[state=active]:text-black data-[state=active]:font-semibold data-[state=active]:border-b-purple-500 p-3 transition-all duration-300 ">Sign Up</TabsTrigger>

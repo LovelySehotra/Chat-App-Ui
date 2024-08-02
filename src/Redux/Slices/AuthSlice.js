@@ -1,5 +1,5 @@
 import apiClient from "@/lib/api-client";
-import { LOGIN_ROUTE, SIGNUP_ROUTE } from "@/utils/constants";
+import { LOGIN_ROUTE, SIGNUP_ROUTE, USERINFO } from "@/utils/constants";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState ={
@@ -46,6 +46,14 @@ export const signup = createAsyncThunk("/signup",async(data)=>{
 export const login = createAsyncThunk("/login",async(data)=>{
     try {
      const res  = apiClient.post(LOGIN_ROUTE,data);
+     return (await res).data
+    } catch (error) {
+     console.log(error)
+    }
+ })
+export const getUserDetails = createAsyncThunk("/userInfo",async(data)=>{
+    try {
+     const res  = apiClient.get(USERINFO);
      return (await res).data
     } catch (error) {
      console.log(error)

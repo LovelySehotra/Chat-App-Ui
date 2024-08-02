@@ -1,4 +1,4 @@
-import { login, signup } from "@/Redux/Slices/AuthSkice";
+import { login, signup } from "@/Redux/Slices/AuthSlice";
 import victory from "@/assets/victory.svg"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";

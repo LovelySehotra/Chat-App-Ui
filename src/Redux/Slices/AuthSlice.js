@@ -51,8 +51,9 @@ export const login = createAsyncThunk("/login",async(data)=>{
      console.log(error)
     }
  })
-export const getUserDetails = createAsyncThunk("/userInfo",async(data)=>{
+export const getUserDetails = createAsyncThunk("/userInfo",async()=>{
     try {
+        
      const res  = apiClient.get(USERINFO);
      return (await res).data
     } catch (error) {

@@ -33,7 +33,7 @@ function Auth() {
     }
     const handleLogin =async()=>{
         const res = await dispatch(login({email,password}))
-       if(res.payload.user.profileSetup){
+       if(res.payload.profileSetup){
         navigate("/chat")
        }  else{
         navigate("/profile")

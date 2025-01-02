@@ -28,7 +28,7 @@ function ProfilePage() {
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100">
       <div className="w-full max-w-md bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-bold text-center mb-8">Profile Page</h2>
+        <h2 className="text-2xl font-bold text-center mb-8">Profile</h2>
         
         <div className="mb-4">
           <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="name">
